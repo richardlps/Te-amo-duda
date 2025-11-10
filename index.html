@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>6 Meses — Nosso Coração</title>
+<style>
+  :root{
+    --bg1: #000;
+    --bg2: #3b0a0a;
+    --red: #ff1e56;
+    --red-dark: #c70039;
+    --photo-size: 90px;
+    --gap: 8px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+
+  body{
+    min-height:100vh;
+    overflow-x:hidden;
+    font-family: "Poppins", sans-serif;
+    color:#fff;
+    background: linear-gradient(135deg, var(--bg1), var(--bg2));
+    background-size: 400% 400%;
+    animation: gradientMove 12s ease infinite;
+    position:relative;
+  }
+
+  @keyframes gradientMove {
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+  }
+
+  header{
+    text-align:center;
+    padding:40px 20px 20px;
+  }
+
+  h1{
+    color:var(--red);
+    font-size:2.8rem;
+    margin-bottom:10px;
+    text-shadow: 0 0 15px rgba(255,30,86,0.5);
+    animation: fadeInDown 1.5s ease;
+  }
+
+  p{
+    color:#eee;
+    font-size:1.1rem;
+    animation: fadeInUp 2s ease;
+  }
+
+  @keyframes fadeInDown {
+    0%{opacity:0; transform:translateY(-20px);}
+    100%{opacity:1; transform:translateY(0);}
+  }
+
+  @keyframes fadeInUp {
+    0%{opacity:0; transform:translateY(20px);}
+    100%{opacity:1; transform:translateY(0);}
+  }
+
+  .heart-wrapper{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin: 0 auto;
+    width:100%;
+    padding:20px;
+  }
+
+  .heart-grid{
+    display:grid;
+    grid-template-columns: repeat(7, var(--photo-size));
+    grid-auto-rows: var(--photo-size);
+    gap: var(--gap);
+    justify-content:center;
+    align-items:center;
+    animation: pulse 2.4s infinite ease-in-out;
+    transform-origin: center;
+    margin-bottom: 22px;
+  }
+
+  .heart-grid img{
+    width:var(--photo-size);
+    height:var(--photo-size);
+    object-fit:cover;
+    border-radius:14px;
+    border:2px solid rgba(255,255,255,0.2);
+    box-shadow: 0 0 20px rgba(255,30,86,0.35);
+    transition: transform .35s ease, box-shadow .35s ease, border .3s ease;
+    background:#111;
+    opacity:0;
+    transform: scale(.96);
+    animation: appear .7s forwards;
+  }
+
+  .heart-grid img:hover{
+    transform: scale(1.1);
+    box-shadow: 0 0 28px rgba(255,30,86,0.75);
+    border-color: var(--red);
+  }
+
+  .empty{visibility:hidden;}
+
+  @keyframes appear{
+    to { opacity:1; transform: scale(1); }
+  }
+
+  @keyframes pulse{
+    0%,100%{ transform: scale(1); }
+    50%{ transform: scale(1.04); }
+  }
+
+  .btn{
+    display:inline-block;
+    background:var(--red);
+    color:#fff;
+    padding:14px 32px;
+    text-decoration:none;
+    border-radius:14px;
+    font-weight:600;
+    font-size:1.1rem;
+    border:none;
+    cursor:pointer;
+    box-shadow:0 0 20px rgba(255,30,86,0.5);
+    transition:all .3s ease;
+    animation: pulseBtn 2s infinite ease-in-out;
+  }
+
+  .btn:hover{
+    background:var(--red-dark);
+    transform:scale(1.05);
+    box-shadow:0 0 28px rgba(255,30,86,0.8);
+  }
+
+  @keyframes pulseBtn {
+    0%,100%{ box-shadow: 0 0 15px rgba(255,30,86,0.4); }
+    50%{ box-shadow: 0 0 28px rgba(255,30,86,0.8); }
+  }
+
+  .music-control{
+    position:fixed;
+    top:14px;
+    right:14px;
+    z-index:60;
+    background:var(--red);
+    color:#fff;
+    border:none;
+    padding:10px 14px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:600;
+    box-shadow: 0 0 10px rgba(255,30,86,0.5);
+    transition: all .3s ease;
+  }
+
+  .music-control:hover{
+    background:var(--red-dark);
+    transform:scale(1.05);
+  }
+
+  /* Floating background hearts */
+  .bg-heart {
+    position: fixed;
+    color: rgba(255,255,255,0.1);
+    font-size: 20px;
+    animation: floatHeart 8s infinite ease-in;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  @keyframes floatHeart {
+    0% { transform: translateY(0) scale(1); opacity:0.7; }
+    50% { transform: translateY(-60px) scale(1.2); opacity:0.4; }
+    100% { transform: translateY(-120px) scale(1); opacity:0.1; }
+  }
+
+  @media (max-width:640px){
+    :root{ --photo-size: 60px; --gap:6px; }
+    h1{ font-size:2rem; }
+    p{ font-size:1rem; }
+    .btn{ font-size:1rem; padding:10px 24px; }
+  }
+
+  @media (max-width:420px){
+    :root{ --photo-size: 48px; }
+    h1{ font-size:1.6rem; }
+  }
+</style>
+</head>
+<body>
+
+  <button class="music-control" onclick="toggleMusic()">🎵 Pausar Música</button>
+  <audio id="music" autoplay loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/10/audio_7e2d92c2e2.mp3?filename=romantic-background-music-110114.mp3" type="audio/mp3">
+  </audio>
+
+  <header>
+    <h1>6 Meses de Amor 💕</h1>
+    <p>Nosso amor pulsa a cada batida do coração. ❤️</p>
+  </header>
+
+  <main class="heart-wrapper">
+    <div class="heart-grid" id="heartGrid">
+      <!-- Linha 1 -->
+      <div class="empty"></div>
+      <img src="img/1.jpg" alt="">
+      <img src="img/2.jpg" alt="">
+      <div class="empty"></div>
+      <img src="img/3.jpg" alt="">
+      <img src="img/4.jpg" alt="">
+      <div class="empty"></div>
+
+      <!-- Linha 2 -->
+      <img src="img/5.jpg" alt="">
+      <img src="img/6.jpg" alt="">
+      <img src="img/7.jpg" alt="">
+      <img src="img/8.jpg" alt="">
+      <img src="img/9.jpg" alt="">
+      <img src="img/10.jpg" alt="">
+      <img src="img/11.jpg" alt="">
+
+      <!-- Linha 3 -->
+      <img src="img/12.jpg" alt="">
+      <img src="img/13.jpg" alt="">
+      <img src="img/14.jpg" alt="">
+      <img src="img/15.jpg" alt="">
+      <img src="img/16.jpg" alt="">
+      <img src="img/17.jpg" alt="">
+      <img src="img/18.jpg" alt="">
+
+      <!-- Linha 4 -->
+      <div class="empty"></div>
+      <img src="img/19.jpg" alt="">
+      <img src="img/20.jpg" alt="">
+      <img src="img/21.jpg" alt="">
+      <img src="img/22.jpg" alt="">
+      <img src="img/23.jpg" alt="">
+      <div class="empty"></div>
+
+      <!-- Linha 5 -->
+      <div class="empty"></div>
+      <div class="empty"></div>
+      <img src="img/24.jpg" alt="">
+      <img src="img/25.jpg" alt="">
+      <img src="img/26.jpg" alt="">
+      <div class="empty"></div>
+      <div class="empty"></div>
+
+      <!-- Linha 6 -->
+      <div class="empty"></div>
+      <div class="empty"></div>
+      <div class="empty"></div>
+      <img src="img/27.jpg" alt="">
+      <div class="empty"></div>
+      <div class="empty"></div>
+      <div class="empty"></div>
+    </div>
+  </main>
+
+  <div style="text-align:center; margin-bottom:60px;">
+    <a class="btn" href="pagina2.html">Ver Nosso Vídeo ❤️</a>
+  </div>
+
+<script>
+  // Controle da música
+  const music = document.getElementById('music');
+  const btn = document.querySelector('.music-control');
+  function toggleMusic(){
+    if(!music) return;
+    if(music.paused){ music.play(); btn.innerText = "🎵 Pausar Música"; }
+    else { music.pause(); btn.innerText = "🎶 Tocar Música"; }
+  }
+
+  // Corações translúcidos flutuando no fundo
+  const bgHearts = 25;
+  for(let i=0;i<bgHearts;i++){
+    const heart = document.createElement('div');
+    heart.className = 'bg-heart';
+    heart.innerText = '💗';
+    heart.style.left = Math.random() * 100 + '%';
+    heart.style.bottom = Math.random() * 100 + 'px';
+    heart.style.fontSize = (16 + Math.random()*26) + 'px';
+    heart.style.animationDuration = (6 + Math.random()*6) + 's';
+    heart.style.animationDelay = Math.random()*5 + 's';
+    document.body.appendChild(heart);
+  }
+</script>
+</body>
+</html>

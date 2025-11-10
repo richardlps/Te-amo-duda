@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nosso Vídeo 💞</title>
+<style>
+  :root {
+    --red: #ff0000;
+    --dark: #000000;
+  }
+
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, var(--red), var(--dark));
+    font-family: "Arial", sans-serif;
+    overflow: hidden;
+    position: relative;
+  }
+
+  h1 {
+    color: #fff;
+    text-shadow: 0 0 12px rgba(255, 0, 0, 0.7);
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+
+  video {
+    width: 90%;
+    max-width: 800px;
+    border-radius: 16px;
+    border: 3px solid #ff4d4d;
+    box-shadow: 0 0 40px rgba(255, 0, 0, 0.6);
+    z-index: 5;
+  }
+
+  .voltar {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: rgba(255, 0, 0, 0.8);
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    z-index: 10;
+  }
+
+  .voltar:hover {
+    background: rgba(255, 0, 0, 1);
+    transform: scale(1.05);
+  }
+
+  /* corações flutuantes */
+  .floating-heart {
+    position: absolute;
+    bottom: -40px;
+    font-size: 28px;
+    animation: floatUp 8s infinite ease-in;
+    opacity: 0.9;
+    pointer-events: none;
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 0.9; }
+    50% { transform: translateY(-120px) scale(1.2); opacity: 0.7; }
+    100% { transform: translateY(-240px) scale(1); opacity: 0.4; }
+  }
+
+</style>
+</head>
+<body>
+
+  <a href="index.html" class="voltar">← Voltar</a>
+
+  <h1>Nosso Amor em Vídeo 💖</h1>
+
+  <video controls autoplay>
+    <source src="img/video1.mp4" type="video/mp4">
+    Seu navegador não suporta o vídeo.
+  </video>
+
+<script>
+  // gerar corações flutuantes
+  const total = 20;
+  for (let i = 0; i < total; i++) {
+    const heart = document.createElement("div");
+    heart.className = "floating-heart";
+    heart.textContent = "💗";
+    heart.style.left = Math.random() * 100 + "%";
+    heart.style.fontSize = 20 + Math.random() * 25 + "px";
+    heart.style.animationDuration = 6 + Math.random() * 6 + "s";
+    heart.style.animationDelay = Math.random() * 4 + "s";
+    document.body.appendChild(heart);
+  }
+</script>
+
+</body>
+</html>
